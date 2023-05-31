@@ -27,7 +27,7 @@ public class TodosTest {
     }
 
     @Test
-    public void shouldSearchTask() {
+    public void shouldSearchOneTask() {
 
         Todos todos = new Todos();
 
@@ -38,6 +38,37 @@ public class TodosTest {
         todos.search("Приложение НетоБанка");
 
         Task[] expected = {meeting};
+        Task[] actual = todos.getSearch();
+    }
+
+    @Test
+    public void shouldSearchSomeTask() {
+
+        Todos todos = new Todos();
+
+        todos.add(simpleTask);
+        todos.add(epic);
+        todos.add(meeting);
+
+        todos.search("Приложение НетоБанка");
+        todos.search("Позвонить родителям");
+
+        Task[] expected = {meeting, simpleTask};
+        Task[] actual = todos.getSearch();
+    }
+
+    @Test
+    public void shouldNotSearchOneTask() {
+
+        Todos todos = new Todos();
+
+        todos.add(simpleTask);
+        todos.add(epic);
+        todos.add(meeting);
+
+        todos.search("Слова");
+
+        Task[] expected = {};
         Task[] actual = todos.getSearch();
     }
 }
